@@ -6,11 +6,19 @@ var CopyWebpackPlugin = require("copy-webpack-plugin");
 //
 var CleanWebpackPlugin = require("clean-webpack-plugin");
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var appConfig = require("./src/appConfig");
+
 //
 // console.log(appConfig.entryPoints);
+
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+const extractLess = new ExtractTextPlugin({
+    filename: "[name].[contenthash].css",
+    disable: process.env.NODE_ENV === "development"
+});
 
 
 module.exports = {
@@ -25,11 +33,9 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
+                loader: "css-loader"
             },
+            //scss
             {
                 test: /\.scss$/,
                 use: [
@@ -38,6 +44,7 @@ module.exports = {
                     'sass-loader'
                 ],
             },
+            //sass
             {
                 test: /\.sass$/,
                 use: [
@@ -46,6 +53,8 @@ module.exports = {
                     'sass-loader?indentedSyntax'
                 ],
             },
+
+            //vue 文件组.
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
@@ -68,6 +77,7 @@ module.exports = {
                     // other vue-loader options go here
                 }
             },
+            //es6 js files.
             {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
@@ -75,6 +85,7 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             },
+            //media.
             {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
@@ -164,10 +175,12 @@ if (process.env.NODE_ENV === 'production') {
         }),
         // css
 
-        new ExtractTextPlugin({
-            filename: "style.css",
-            allChunks: true
-        }),
+        // new ExtractTextPlugin({
+        //     filename: "style.css",
+        //     allChunks: true
+        // }),
+
+        extractLess,
 
         //生成html，模板.
         // new HtmlWebpackPlugin(),

@@ -1,4 +1,9 @@
-import  * as _ from "lodash";
+/**
+ * @description caol
+ *
+ * @author wangsl.
+ * */
+import * as _ from "lodash";
 //
 
-_.padStart("hhh",20,"");
+_.padStart("hhh", 20, "");

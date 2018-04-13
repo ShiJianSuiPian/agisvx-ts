@@ -1,6 +1,10 @@
 import {say, User} from "./user";
 
-import "../css/main.css"
+// import sassStyle from "../sass/test.scss";
+var sassStyle = require("../sass/test.scss");
+var style = require("../less/main.less");
+
+// import style from "../less/main.less";
 
 export class MainView {
     //
@@ -27,3 +31,9 @@ export class MainView {
 
     //
 }
+
+//
+
+let mainView = new MainView();
+//
+mainView.say();

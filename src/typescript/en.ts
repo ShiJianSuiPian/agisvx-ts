@@ -19,3 +19,8 @@ export function say(nn: string) {
     //
     console.log(nn);
 }
+
+export function loadModules() {
+    //
+    console.log("tests");
+}
